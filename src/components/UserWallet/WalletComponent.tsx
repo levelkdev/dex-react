@@ -111,7 +111,7 @@ const UserWallet: React.FC<RouteComponentProps> = (props: UserWalletProps) => {
     } else {
       onClick = connectWallet
       content = (
-        <UserWalletItem $padding="0px" $wordWrap="nowrap">
+        <UserWalletItem>
           <FontAwesomeIcon icon={faSignInAlt} />
           <strong> Connect Wallet</strong>
         </UserWalletItem>
@@ -137,9 +137,7 @@ const UserWallet: React.FC<RouteComponentProps> = (props: UserWalletProps) => {
             <UserAddress>
               {userAddress && abbreviateString(userAddress, 6, 4)}
               {/* Network */}
-              <UserWalletItem>
-                <NetworkTitle>{(networkId && getNetworkFromId(networkId)) || 'Unknown Network'}</NetworkTitle>
-              </UserWalletItem>
+              <NetworkTitle>{(networkId && getNetworkFromId(networkId)) || 'Unknown Network'}</NetworkTitle>
             </UserAddress>
           </UserWalletToggler>
         </>
@@ -149,9 +147,6 @@ const UserWallet: React.FC<RouteComponentProps> = (props: UserWalletProps) => {
       {/* Main elements of Wallet: QR, Address copy, Etherscan URL, Log Out */}
       {userAddress && showWallet && (
         <UserWalletSlideWrapper>
-          <UserWalletItem>
-            <QRCode value={userAddress} renderAs="svg" />
-          </UserWalletItem>
           <UserWalletItem>
             {/* Copy Confirmation */}
             {copiedToClipboard ? (
@@ -172,16 +167,13 @@ const UserWallet: React.FC<RouteComponentProps> = (props: UserWalletProps) => {
                 </CopyToClipboard>
               </>
             )}
+            {/* Etherscan Link */}
+            {/* TODO: add network specific */}
+            <EtherscanLink type="address" identifier={userAddress} label="View on Etherscan" />
+            {/* Log In/Out Button */}
+            {renderLogInOutButton()}
           </UserWalletItem>
-          {/* Etherscan Link */}
-          {
-            <UserWalletItem>
-              {/* TODO: add network specific */}
-              <EtherscanLink type="address" identifier={userAddress} label="View on Etherscan" />
-            </UserWalletItem>
-          }
-          {/* Log In/Out Button */}
-          {renderLogInOutButton()}
+          <QRCode className="QRCode" value={userAddress} renderAs="svg" />
         </UserWalletSlideWrapper>
       )}
     </UserWalletWrapper>
