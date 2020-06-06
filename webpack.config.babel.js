@@ -187,5 +187,7 @@ module.exports = ({ stats = false } = {}) => ({
       maxSize: 1000000,
     },
     runtimeChunk: true,
+    moduleIds: 'hashed',
+    chunkIds: 'total-size',
   },
 })
