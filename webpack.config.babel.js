@@ -186,7 +186,7 @@ module.exports = ({ stats = false } = {}) => ({
       maxAsyncRequests: 10,
       maxSize: 1000000,
     },
-    runtimeChunk: true,
+    runtimeChunk: false,
     moduleIds: 'hashed',
   },
 })
