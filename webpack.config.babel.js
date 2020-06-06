@@ -21,7 +21,7 @@ const config = loadConfig()
 const { name: appName } = config
 
 module.exports = ({ stats = false } = {}) => ({
-  devtool: isProduction ? 'source-map' : 'eval-source-map',
+  devtool: isProduction ? 'none' : 'eval-source-map',
   output: {
     path: __dirname + '/dist',
     chunkFilename: isProduction ? '[name].[contenthash:4].js' : '[name].js',
@@ -179,15 +179,4 @@ module.exports = ({ stats = false } = {}) => ({
       CONFIG: JSON.stringify(config),
     }),
   ].filter(Boolean),
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 20000,
-      maxAsyncRequests: 10,
-      maxSize: 1000000,
-    },
-    runtimeChunk: true,
-    moduleIds: 'hashed',
-    chunkIds: 'total-size',
-  },
 })
