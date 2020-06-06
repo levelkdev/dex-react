@@ -179,13 +179,4 @@ module.exports = ({ stats = false } = {}) => ({
       CONFIG: JSON.stringify(config),
     }),
   ].filter(Boolean),
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 20000,
-      maxAsyncRequests: 10,
-      maxSize: 1000000,
-    },
-    runtimeChunk: true,
-  },
 })
