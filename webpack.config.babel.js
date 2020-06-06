@@ -21,11 +21,11 @@ const config = loadConfig()
 const { name: appName } = config
 
 module.exports = ({ stats = false } = {}) => ({
-  devtool: isProduction ? 'source-map' : 'eval-source-map',
+  devtool: isProduction ? 'none' : 'eval-source-map',
   output: {
     path: __dirname + '/dist',
-    chunkFilename: isProduction ? '[name].[chunkhash:4].js' : '[name].js',
-    filename: isProduction ? '[name].[chunkhash:4].js' : '[name].js',
+    chunkFilename: '[name].js',
+    filename: '[name].js',
     publicPath: baseUrl,
   },
   module: {
@@ -152,9 +152,9 @@ module.exports = ({ stats = false } = {}) => ({
     new PreloadWebpackPlugin({
       rel: 'prefetch',
       include: 'allAssets',
-      fileBlacklist: [/\.map/, /runtime~.+\.js$/],
+      fileBlacklist: [/\.map/, /\.js$/],
     }),
-    isProduction && new InlineChunkHtmlPlugin(HtmlWebPackPlugin, [/runtime/]),
+    isProduction && new InlineChunkHtmlPlugin(HtmlWebPackPlugin, []),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
       BASE_URL: baseUrl,
@@ -179,13 +179,4 @@ module.exports = ({ stats = false } = {}) => ({
       CONFIG: JSON.stringify(config),
     }),
   ].filter(Boolean),
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      minSize: 20000,
-      maxAsyncRequests: 10,
-      maxSize: 1000000,
-    },
-    runtimeChunk: true,
-  },
 })
