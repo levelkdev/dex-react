@@ -62,8 +62,8 @@ export const PriceInputBox = styled.div`
   display: flex;
   flex-flow: column nowrap;
   margin: 0;
-  width: 50%;
   width: calc(50% - 0.8rem);
+  width: 70%;
   position: relative;
   outline: 0;
 
@@ -222,7 +222,7 @@ const Price: React.FC<Props> = ({ sellToken, receiveToken, priceInputId, priceIn
       <strong>
         Limit Price <OrderBookBtn baseToken={receiveToken} quoteToken={sellToken} />
       </strong>
-      <PriceInputBox>
+      <PriceInputBox style={{ display: 'none' }}>
         <label>
           <input
             className={isError ? 'error' : ''}
@@ -257,8 +257,6 @@ const Price: React.FC<Props> = ({ sellToken, receiveToken, priceInputId, priceIn
             tabIndex={tabIndex}
           />
           <div>
-            <small title={receiveToken.symbol}>{receiveToken.symbol}</small>
-            <small>/</small>
             <small title={sellToken.symbol}>{sellToken.symbol}</small>
           </div>
         </label>
